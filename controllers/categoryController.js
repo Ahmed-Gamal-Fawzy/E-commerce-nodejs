@@ -1,5 +1,6 @@
 const slugify = require('slugify');
 const asyncHandler = require('express-async-handler');
+const ApiError = require('../utils/apiError');
 const Category = require('../models/categoryModel');
 
 // @desc get all categories
@@ -15,11 +16,11 @@ exports.getCategories = asyncHandler(async (req,res)=>{
 // @desc get specific category
 // @route GET api/v1/categories/:id
 // @access Public
-exports.getCategory = asyncHandler(async (req,res) =>{
+exports.getCategory = asyncHandler(async (req,res,next) =>{
     const {id} = req.params;
     const category= await Category.findById(id);
     if(!category){
-        res.status(404).json({message: 'Category not found'});
+        return next(new ApiError(`No Category For This Id : ${id}`, 404));
     }
     res.status(200).json({data:category});
 })
@@ -38,12 +39,12 @@ exports.createCategory = asyncHandler(async (req,res) =>{
 // @desc update category
 // @route PUT api/v1/categories/:id
 // @access Private
-exports.updateCategory = asyncHandler(async (req,res) =>{
+exports.updateCategory = asyncHandler(async (req,res,next) =>{
     const {id} = req.params;
     const {name} = req.body;
     const category = await Category.findByIdAndUpdate(id,{name, slug:slugify(name)},{new:true});
     if(!category){
-        res.status(404).json({message: 'Category not found'});
+        return next(new ApiError(`No Category For This Id : ${id}`, 404));
     }
     res.status(200).json({data:category});
 })
@@ -52,11 +53,11 @@ exports.updateCategory = asyncHandler(async (req,res) =>{
 // @desc delete category
 // @route DELETE api/v1/categories/:id
 // @access Private
-exports.deleteCategory = asyncHandler(async (req,res) =>{
+exports.deleteCategory = asyncHandler(async (req,res,next) =>{
     const {id} = req.params;
     const category = await Category.findByIdAndDelete(id);
     if(!category){
-        res.status(404).json({message: 'Category not found'});
+        return next(new ApiError(`No Category For This Id : ${id}`, 404));
     }
     res.status(204).send();
 })
