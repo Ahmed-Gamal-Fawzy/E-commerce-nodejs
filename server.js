@@ -21,6 +21,10 @@ if (process.env.NODE_ENV === 'development') {
 // Mount routes
 app.use('/api/v1/categories', categoryRoute);
 
+// Global error handling middleware
+app.use((err,req,res,next) =>{
+    res.status(400).json({err})
+})
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
