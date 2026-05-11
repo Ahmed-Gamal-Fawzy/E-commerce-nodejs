@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: ecommerce_api
+    ports:
+      - "8000:8000"
+    env_file:
+      - config.env
+    volumes:
+      # Mount the current directory to the container so we can see changes live
+      - .:/usr/src/app
+      # Prevent the container from overwriting its node_modules with our local ones
+      - /usr/src/app/node_modules
+    command: npm run dev
