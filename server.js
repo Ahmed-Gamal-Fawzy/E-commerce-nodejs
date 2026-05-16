@@ -4,6 +4,7 @@ const morgan = require("morgan");
 
 const dbConnection = require('./config/database');
 const categoryRoute = require('./routes/categoryRoute');
+const subCategoryRoute = require('./routes/subCategoryRoute');
 const ApiError = require('./utils/apiError');
 const globalError = require('./middlewares/errormiddleware');
 
@@ -24,7 +25,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 // Mount routes
 app.use('/api/v1/categories', categoryRoute);
-
+app.use('/api/v1/subcategories', subCategoryRoute);
 
 app.all('*splat',(req,res,next)=>{
     next(new ApiError(`can't find this route : ${req.originalUrl}`, 400))
