@@ -12,7 +12,9 @@ const {
     deleteSubCategory
 } = require('../controllers/subcategoryController');
 
-const router = express.Router();
+// mergeparams: Allow us to access parameters on other routers
+// ex: we need to access categoryId from category router 
+const router = express.Router({mergeParams:true});
 
 router.route('/')
     .post(createSubCategoryValidator, createSubCategory)
