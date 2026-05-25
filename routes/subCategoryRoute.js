@@ -9,7 +9,9 @@ const {
     getSubCategories,
     getSubCategory,
     updateSubCategory,
-    deleteSubCategory
+    deleteSubCategory,
+    setcategoryIdToBody,
+    createFilterObj
 } = require('../controllers/subcategoryController');
 
 // mergeparams: Allow us to access parameters on other routers
@@ -17,8 +19,8 @@ const {
 const router = express.Router({mergeParams:true});
 
 router.route('/')
-    .post(createSubCategoryValidator, createSubCategory)
-    .get(getSubCategories);
+    .post(setcategoryIdToBody, createSubCategoryValidator, createSubCategory)
+    .get(createFilterObj, getSubCategories);
 router.route('/:id')
     .get(getSubCategoryValidator, getSubCategory)
     .put(updateSubCategoryValidator, updateSubCategory)
