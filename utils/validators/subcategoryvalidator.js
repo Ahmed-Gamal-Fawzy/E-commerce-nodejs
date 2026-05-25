@@ -27,12 +27,12 @@ exports.createSubCategoryValidator=[
 
 
 
-// exports.updateSubCategoryValidator = [
-//     param('id').isMongoId().withMessage("invalid subcategory id format"),
-//     validatorMiddleware,
-// ];
+exports.updateSubCategoryValidator = [
+    param('id').isMongoId().withMessage("invalid subcategory id format"),
+    validatorMiddleware,
+];
 
-// exports.deleteSubCategoryValidator = [
-//     param('id').isMongoId().withMessage("invalid subcategory id format"),
-//     validatorMiddleware,
-// ];
+exports.deleteSubCategoryValidator = [
+    param('id').isMongoId().withMessage("invalid subcategory id format"),
+    validatorMiddleware,
+];
