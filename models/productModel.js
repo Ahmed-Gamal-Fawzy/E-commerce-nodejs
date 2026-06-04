@@ -31,12 +31,12 @@ const productSchema=new mongoose.Schema(
             type:Number,
             required:[true,'Product price is required'],
             trim:true,
-            maxlength:[20,'Product price must be less than 20 characters']
+            max:[20,'Product price must be less than 20 characters']
         },
         priceAfterDiscount:{
             type:Number,
             trim:true,
-            maxlength:[20,'Product price after discount must be less than 20 characters']
+            max:[20,'Product price after discount must be less than 20 characters']
         },
         colors:[String],
         imagecover:{
